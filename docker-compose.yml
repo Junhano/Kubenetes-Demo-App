@@ -14,7 +14,7 @@ services:
   postgres:
     image: "postgres:latest"
     environment:
-      - PGPASSWORD=postgres_password
+      - POSTGRES_PASSWORD=postgres_password
   redis:
     image: "redis:latest"
   api:
