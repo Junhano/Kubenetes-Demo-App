@@ -17,9 +17,9 @@ before_install:
   - gcloud config set compute/zone us-central1-c
   - gcloud container clusters get-credentials multi-cluster
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t Junhano/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t junhano/react-test -f ./client/Dockerfile.dev ./client
 script:
-  - docker run -e CI=true Junhano/react-test npm test
+  - docker run -e CI=true junhano/react-test npm test
 
 deploy:
   provider: script
