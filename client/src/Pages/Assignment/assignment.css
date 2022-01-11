@@ -1,0 +1,59 @@
+.assignmentpage {
+  width: 70%;
+  border: 1px solid black;
+  margin: 0 auto;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+.allava {
+  border-top: 1px solid black;
+}
+
+.centertext {
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 0.5px solid black;
+}
+
+.input {
+  text-align: center;
+  width: 100%;
+  height: 25px;
+}
+
+.inputdiv {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.btn {
+  width: 100%;
+}
+
+.btndiv {
+  margin: 20px auto;
+  width: 50%;
+  height: 20px;
+}
+
+.removeblock {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  border: 0.5px solid black;
+}
+
+.removetext {
+  text-align: center;
+}
+
+.removebtndiv {
+  width: 50%;
+  margin: 20px auto;
+}

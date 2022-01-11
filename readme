@@ -1,0 +1,9 @@
+A SIMPLE FULL STACK APPLICATION THAT UTILIZE DOCKER AND KUBERNETES 
+
+You can test run this application by first
+
+1. Clone the repository
+2. Make sure you have Kubenetes installed and working in your local PC (If you are testing locally)
+3. run kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.0/deploy/static/provider/cloud/deploy.yaml 
+4. run kubectl create secret generic pgpassword --from-literal PGPASSWORD={any password you want}
+5. run kubectl apply -f k8s

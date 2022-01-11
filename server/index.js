@@ -1,6 +1,5 @@
 const keys = require("./keys");
 
-// Express App Setup
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -9,8 +8,6 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
-//Postgres client setup
 
 const { Pool } = require("pg");
 const pgClient = new Pool({
@@ -23,48 +20,34 @@ const pgClient = new Pool({
 
 pgClient.on("connect", (client) => {
   client
-    .query("CREATE TABLE IF NOT EXISTS values (number INT)")
+    .query("CREATE TABLE IF NOT EXISTS Assignments (name VARCHAR(255))")
     .catch((err) => console.error(err));
 });
-
-// Redis Client Setup
-const redis = require("redis");
-const redisClient = redis.createClient({
-  host: keys.redisHost,
-  port: keys.redisPort,
-  retry_strategy: () => 1000,
-});
-
-const redisPublisher = redisClient.duplicate();
 
 app.get("/", (req, res) => {
   res.send("Hi");
 });
 
-app.get("/values/all", async (req, res) => {
+app.get("/assignment/all", async (req, res) => {
   try {
-    const values = await pgClient.query("SELECT * FROM values");
+    const values = await pgClient.query("SELECT * FROM Assignments");
     res.send(values.rows);
   } catch (error) {
     console.log(error);
   }
 });
 
-app.get("/values/current", async (req, res) => {
-  redisClient.hgetall("values", (err, values) => {
-    res.send(values);
-  });
+app.post("/assignment", async (req, res) => {
+  const name = req.body.name;
+
+  pgClient.query("INSERT INTO Assignments(name) VALUES($1)", [name]);
+
+  res.send({ working: true });
 });
 
-app.post("/values", async (req, res) => {
-  const index = req.body.index;
-  if (parseInt(index) > 40) {
-    return res.status(422).send("Index too high");
-  }
-
-  redisClient.hset("values", index, "Nothing yet!");
-  redisPublisher.publish("insert", index);
-  pgClient.query("INSERT INTO values(number) VALUES($1)", [index]);
+app.delete("/assignment", async (req, res) => {
+  const name = req.body.name;
+  pgClient.query("DELETE FROM Assignments WHERE name=($1)", [name]);
 
   res.send({ working: true });
 });
